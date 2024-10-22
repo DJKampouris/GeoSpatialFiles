@@ -1,0 +1,77 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+key "externaldns-key" {
+        algorithm hmac-sha256;
+        secret "Mb1DbIsn3Vp+izGS16VDTa/PQk8guUOA/7TDAak1lOM=";
+};
+
+zone "privatelink.azuredatabricks.net" {
+    type master;
+    file "/var/lib/bind/privatelink.azuredatabricks.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};
+
+zone "privatelink.vaultcore.azure.net" {
+    type master;
+    file "/var/lib/bind/privatelink.vaultcore.azure.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};
+
+zone "privatelink.database.windows.net" {
+    type master;
+    file "/var/lib/bind/privatelink.database.windows.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};
+
+zone "privatelink.blob.core.windows.net" {
+    type master;
+    file "/var/lib/bind/privatelink.blob.core.windows.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};
+
+zone "privatelink.dfs.core.windows.net" {
+    type master;
+    file "/var/lib/bind/privatelink.dfs.core.windows.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};
+
+zone "privatelink.datafactory.azure.net" {
+    type master;
+    file "/var/lib/bind/privatelink.datafactory.azure.net.zone";
+    allow-transfer {
+        key "externaldns-key";
+    };
+    update-policy {
+        grant externaldns-key zonesub ANY;
+    };
+};

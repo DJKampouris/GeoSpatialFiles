@@ -1,0 +1,15 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     privatelink.database.windows.net. root.privatelink.database.windows.net. (
+                              6         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.privatelink.database.windows.net.
+@       IN      A       172.16.1.4
+@       IN      AAAA    ::1
+ns      IN      A       172.16.1.4
