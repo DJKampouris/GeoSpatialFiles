@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?> <xs:schema
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 2350
+xmlns:xforms="http://www.w3.org/2002/xforms" elementFormDefault="qualified"
+targetNamespace="urn:ihe:iti:csd:2013"
+xmlns="urn:ihe:iti:csd:2013" xmlns:xml="http://www.w3.org/XML/1998/namespace"> 2355 <xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="http://www.w3.org/2001/XMLSchema.xsd"/> <xs:import namespace="http://www.w3.org/2002/xforms" schemaLocation="http://www.w3.org/MarkUp/Forms/2002/XForms-Schema.xsd"/> <xs:import namespace = "http://www.w3.org/XML/1998/namespace"/> 2360 <xs:complexType name="uniqueID"> <xs:attribute name="entityID" type="xs:string" use="required"/> 2365 </xs:complexType> <xs:complexType name="otherID"> <xs:attribute name="code" type="xs:string" use="required"/> <xs:attribute name="assigningAuthorityName" type="xs:string" use="required"> <xs:annotation> 2370 <xs:documentation>Use of an OID is encouraged. </xs:documentation> </xs:annotation> </xs:attribute> </xs:complexType> 2375 <xs:complexType name="extension"> <xs:sequence> 2380 <xs:any minOccurs="0" namespace="##any" processContents="skip"/> </xs:sequence> <xs:attribute name="type" use="required"> </xs:attribute> <xs:attribute name="urn" type="xs:string" use="required"> </xs:attribute> <xs:anyAttribute/> 2385 </xs:complexType> <xs:complexType name="codedtype"> 2390 <xs:annotation> <xs:documentation>The text content of this element may optionally be used to provide translations to the local language of a coded value.</xs:documentation> </xs:annotation> <xs:simpleContent> 2395 <xs:extension base="xs:string"> <xs:attribute name="code" use="required"/> <xs:attribute name="codingScheme" use="required"/> <xs:anyAttribute/> </xs:extension> 2400 </xs:simpleContent> </xs:complexType>
+<xs:element name="demographic" type="person"/> <xs:element name="language" type="codedtype" maxOccurs="unbounded" minOccurs="0"/> <xs:element name="organizations" minOccurs="0"> <xs:complexType> 2540 <xs:sequence> <xs:element name="organization" maxOccurs="unbounded"> <xs:complexType> <xs:complexContent> <xs:extension base="uniqueID"> 2545 <xs:sequence> <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/> <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/> 2550 <xs:element name="contactPoint" type="contactPoint" minOccurs="0" maxOccurs="unbounded"/> </xs:sequence> </xs:extension> </xs:complexContent> 2555 </xs:complexType> </xs:element> </xs:sequence> </xs:complexType> </xs:element> 2560 <xs:element name="facilities" minOccurs="0"> <xs:complexType> <xs:sequence> <xs:element name="facility" maxOccurs="unbounded"> <xs:complexType> 2565 <xs:complexContent> <xs:extension base="uniqueID"> <xs:sequence> <xs:element name="service" maxOccurs="unbounded" minOccurs="0"> <xs:complexType> 2570 <xs:complexContent> <xs:extension base="uniqueID"> <xs:sequence> <xs:element name="name" type="name" minOccurs="0" maxOccurs="unbounded"/> 2575 <xs:element minOccurs="0" name="organization" type="uniqueID"/> <xs:element name="language" type="codedtype" minOccurs="0" maxOccurs="unbounded"/> <xs:element name="operatingHours" type="operatingHours" 2580 minOccurs="0" maxOccurs="unbounded"/> <xs:element name="freeBusyURI" minOccurs="0" type="xs:anyURI"> </xs:element> <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" 2585 type="extension"/> </xs:sequence> </xs:extension> </xs:complexContent> </xs:complexType> 2590 </xs:element>
+<xs:element name="operatingHours" type="operatingHours" minOccurs="0" maxOccurs="unbounded"/> <xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/> 2595
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType> </xs:element> </xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="credential" type="credential" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="specialty" type="codedtype" minOccurs="0" maxOccurs="unbounded"/> 
+<xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+<xs:element name="record" type="record"/>
+</xs:sequence> </xs:extension>
+</xs:complexContent> 
+</xs:complexType>
+<!--informed by government specification from France and by OASIS names spec: http://xml.coverpages.org/namesAndAddresses.html)-->  <xs:complexType name="name"> <xs:sequence> <xs:element name="commonName" maxOccurs="unbounded"> <xs:complexType> <xs:simpleContent> <xs:extension base="xs:string"> </xs:extension> </xs:simpleContent> </xs:complexType> </xs:element> <xs:element name="honorific" type="xs:string" minOccurs="0"/> <xs:element name="forename" type="xs:string" minOccurs="0"/> <xs:element name="otherName" type="codedtype minOccurs="0" maxOccurs="unbounded"/> <xs:element name="surname" type="xs:string" minOccurs="0"/> <xs:element name="suffix" type="xs:string" minOccurs="0"/> </xs:sequence> </xs:complexType>
+<xs:complexType name="person"> <xs:sequence> <xs:element name="name" maxOccurs="unbounded"> <xs:complexType> <xs:complexContent> <xs:extension base="name"> <xs:attribute ref="xml:lang"/> </xs:extension> </xs:complexContent> </xs:complexType> </xs:element> <xs:element name="contactPoint" type="contactPoint" minOccurs="0" maxOccurs="unbounded"/> <xs:element name="address" type="address" minOccurs="0" maxOccurs="unbounded"/> <xs:element name="gender" type="xs:string" minOccurs="0"/> <xs:element minOccurs="0" name="dateOfBirth" type="xs:date"/>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/> </xs:sequence> </xs:complexType>
+<!--ref HL7-OMG HSD data dictionary and IHE HPD)-->
+<xs:complexType name="contactPoint">
+<xs:sequence> 
+<xs:element name="codedType" type="codedtype"/>
+<xs:element name="equipment" type="xs:string" minOccurs="0"/>
+<xs:element name="purpose" type="xs:string" minOccurs="0"/>
+<xs:element name="certificate" type="xs:string" minOccurs="0"/>
+</xs:sequence> 
+</xs:complexType>
+<!--informed by OASIS names and addresses spec: http://xml.coverpages.org/namesAndAddresses.html)-->  <xs:complexType name="address"> <xs:sequence> <xs:element name="addressLine" maxOccurs="unbounded"> <xs:complexType> <xs:simpleContent> <xs:extension base="xs:string"> <!--could model extensions using address type attributes; these types could be defined by implementing jurisdiction; e.g., village, sector, etc.)--> <xs:attribute name="component" type="xs:string" use="optional"/> </xs:extension> </xs:simpleContent> </xs:complexType> </xs:element> </xs:sequence> <xs:attribute name="type"/> </xs:complexType> <!--intended to be backward compatible with HPD and informed by HL7-OMG HSD spec)--> <xs:complexType name="credential"> <xs:sequence> <xs:element name="codedType" type="codedtype"/> <xs:element name="number" type="xs:string"/> <xs:element name="issuingAuthority" type="xs:string" minOccurs="0"/> <xs:element name="credentialIssueDate" type="xs:date" minOccurs="0"/> <xs:element name="credentialRenewalDate" type="xs:date" minOccurs="0"/> 
+<xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="geocode"> <xs:sequence>
+<xs:element name="latitude" type="xs:decimal"/>
+<xs:element name="longitude" type="xs:decimal"/>
+<xs:element name="altitude" type="xs:decimal" minOccurs="0"/>
+<xs:element name="coordinateSystem" type="xs:string" minOccurs="0"/> 
+</xs:sequence>
+</xs:complexType>
+<!--informed by HL7-OMG HSD spec; Sunday=0, Monday=1...)--> <xs:complexType name="operatingHours"> 
+<xs:sequence> <xs:element name="openFlag" type="xs:boolean"/>
+<xs:element name="dayOfTheWeek" type="xs:integer" maxOccurs="unbounded" minOccurs="0"/>
+<xs:element name="beginningHour" type="xs:time" minOccurs="0"/>
+<xs:element name="endingHour" type="xs:time" minOccurs="0"/> 
+<xs:element name="beginEffectiveDate" type="xs:date"/>
+<xs:element name="endEffectiveDate" type="xs:date" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<!--informed by HL7-OMG HSD spec)-->
+<xs:complexType name="service">
+<xs:complexContent>
+<xs:extension base="uniqueID">
+<xs:sequence> 
+<xs:element name="otherID" type="otherID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="codedType" type="codedtype" maxOccurs="unbounded"/>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="extension" type="extension"/>
+<xs:element name="record" type="record"/> </xs:sequence> 
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
